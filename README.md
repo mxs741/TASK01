@@ -2,6 +2,7 @@
 
 ## Запуск
 ### git clone https://github.com/mxs741/TASK01.git
+### cd /TASK01
 ### npm i
 ### npm start
 
