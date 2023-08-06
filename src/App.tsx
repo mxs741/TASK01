@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
+import { useEffect, useState } from 'react';
 import './App.css';
+import Table from './components/Table';
+import MenuAppBar from './components/MenuAppBar'
+import Auth from './components/Auth';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-function App() {
+const App = () => {
+  const [state, setState] = useState<string | null>('false');
+
+  useEffect(() => {
+    const authValue = localStorage.getItem('auth');
+    if (authValue) {
+      setState(authValue as string);
+    } else {
+      localStorage.setItem('auth', 'false');
+      setState('false');
+    };
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <MenuAppBar />
+        <Routes>
+          <Route path='/auth' element={<Auth />} />
+          <Route path='/' element={<Table/>} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
-}
+};
 
 export default App;
